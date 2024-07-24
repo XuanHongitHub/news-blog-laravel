@@ -13,11 +13,8 @@
             <div class="post-meta"><span class="date">{{ $category_arr->category_name }}</span> <span class="mx-1">&bullet;</span>
               <span>{{ $news->created_at }}</span></div>
             <h1 class="mb-5">{{ $news->title }}</h1>
-            <h4 class="mb-2">{{ $news->summary }}</h4>
-            <figure class="my-4">
-              <img src="{{ asset($news->preview) }}" alt="" class="img-fluid">
-              <figcaption class="text-center">Hình ảnh: {{ $news->title }} </figcaption>
-            </figure>
+            <h6 class="fw-bold mb-2">{{ $news->summary }}</h6>
+            
             <div class="content mb-5">
               {!! $news->content !!}
             </div>

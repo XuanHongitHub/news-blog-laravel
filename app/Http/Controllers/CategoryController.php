@@ -16,7 +16,7 @@ class CategoryController extends Controller
             'title' => 'Trang chủ',
         ];
 
-        $categories = Category::select('id', 'category_name', 'language', 'ordinal', 'slug', 'status', 'created_at', 'updated_at')->get();
+        $categories = Category::all();
 
         return view('backend.categories.index')->with(compact('body', 'categories'));
     }

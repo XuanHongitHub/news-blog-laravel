@@ -48,7 +48,7 @@
 
       <a href="{{url('/')}}" class="logo d-flex align-items-center">
         <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/img/logo.png" alt=""> -->
+        <!-- <img src="" alt=""> -->
         <h1>Xuan</h1>
         <h1 class="text-primary">Hong</h1>
       </a>
@@ -57,30 +57,22 @@
         <ul>
 
           <li><a href="{{url('/')}}">Trang Chủ</a></li>
-          @foreach ($categories_nav as $category)          
+
+          <li class="dropdown"><a><span>Danh Mục</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul>
+              @foreach ($categories_nav as $category)
+              <li class="nav-item">
+                <a class="nav-link"
+                  href="{{ url('/single-category', [$category->slug]) }}">{{$category->category_name}}</a>
+              </li>
+              @endforeach
+            </ul>
+          </li>
+          {{-- @foreach ($categories_nav as $category)
           <li class="nav-item">
             <a class="nav-link" href="{{ url('/single-category', [$category->slug]) }}">{{$category->category_name}}</a>
           </li>
-          @endforeach
-          {{-- <li class="dropdown"><a><span>Danh Mục</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-            <ul>
-              <li><a href="search-result.html">Search Result</a></li>
-              <li><a href="#">Drop Down 1</a></li>
-              <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i
-                    class="bi bi-chevron-down dropdown-indicator"></i></a>
-                <ul>
-                  <li><a href="#">Deep Drop Down 1</a></li>
-                  <li><a href="#">Deep Drop Down 2</a></li>
-                  <li><a href="#">Deep Drop Down 3</a></li>
-                  <li><a href="#">Deep Drop Down 4</a></li>
-                  <li><a href="#">Deep Drop Down 5</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Drop Down 2</a></li>
-              <li><a href="#">Drop Down 3</a></li>
-              <li><a href="#">Drop Down 4</a></li>
-            </ul>
-          </li> --}}
+          @endforeach --}}
           <li><a href="{{url('about')}}">Giới Thiệu</a></li>
           <li><a href="{{url('contact')}}">Liên Hệ</a></li>
         </ul>
@@ -195,12 +187,12 @@
           </div>
 
           <div class="col-lg-4">
-            <h3 class="footer-heading">Bài Viết Hiện Tại</h3>
+            <h3 class="footer-heading">Bài Viết Mới</h3>
 
             <ul class="footer-links footer-blog-entry list-unstyled">
               <li>
                 <a href="single-post.html" class="d-flex align-items-center">
-                  <img src="assets/img/post-sq-1.jpg" alt="" class="img-fluid me-3">
+                  <img src="{{ asset('assets/img/post-sq-1.jpg') }}" alt="" class="img-fluid me-3">
                   <div>
                     <div class="post-meta d-block"><span class="date">Culture</span> <span class="mx-1">&bullet;</span>
                       <span>Jul 5th '22</span></div>
@@ -211,7 +203,7 @@
 
               <li>
                 <a href="single-post.html" class="d-flex align-items-center">
-                  <img src="assets/img/post-sq-2.jpg" alt="" class="img-fluid me-3">
+                  <img src="{{ asset('assets/img/post-sq-2.jpg') }}" alt="" class="img-fluid me-3">
                   <div>
                     <div class="post-meta d-block"><span class="date">Culture</span> <span class="mx-1">&bullet;</span>
                       <span>Jul 5th '22</span></div>
@@ -222,7 +214,7 @@
 
               <li>
                 <a href="single-post.html" class="d-flex align-items-center">
-                  <img src="assets/img/post-sq-3.jpg" alt="" class="img-fluid me-3">
+                  <img src="{{ asset('assets/img/post-sq-3.jpg') }}" alt="" class="img-fluid me-3">
                   <div>
                     <div class="post-meta d-block"><span class="date">Culture</span> <span class="mx-1">&bullet;</span>
                       <span>Jul 5th '22</span></div>
@@ -233,7 +225,7 @@
 
               <li>
                 <a href="single-post.html" class="d-flex align-items-center">
-                  <img src="assets/img/post-sq-4.jpg" alt="" class="img-fluid me-3">
+                  <img src="{{ asset('assets/img/post-sq-4.jpg') }}" alt="" class="img-fluid me-3">
                   <div>
                     <div class="post-meta d-block"><span class="date">Culture</span> <span class="mx-1">&bullet;</span>
                       <span>Jul 5th '22</span></div>

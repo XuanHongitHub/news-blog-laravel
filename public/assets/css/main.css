@@ -776,8 +776,8 @@ section {
 
 .post-content figure {
   position: relative;
-  left: 52%;
-  min-width: 990px;
+  left: 50%;
+  /* min-width: 990px; */
   transform: translateX(-50%);
 }
 
@@ -791,8 +791,7 @@ section {
 
 .post-content figure figcaption {
   font-family: var(--font-secondary);
-  font-size: 14px;
-  padding: 10px 0 0 0;
+  text-align: center;
 }
 
 .aside-title,
@@ -1353,4 +1352,13 @@ section {
   background: transparent;
   color: #3393f2;
   border-color: #80c3ff;
+}
+
+.subpost-img {
+  height: 10rem;
+  /* Chiều cao cố định */
+  width: 100%;
+  /* Đảm bảo tính responsive theo chiều ngang */
+  object-fit: cover;
+  /* Giúp hình ảnh không bị méo khi thay đổi kích thước */
 }

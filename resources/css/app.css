@@ -340,7 +340,18 @@ hr,
 figure,
 p,
 pre {
-    margin: 0;
+    font-family: Lato, sans-serif;
+}
+
+
+figcaption {
+    font-family: arial;
+    font-size: .9375rem;
+    font-style: italic;
+    line-height: 1.4;
+    margin-top: 10px;
+    text-align: center;
+    width: 100%
 }
 
 fieldset {

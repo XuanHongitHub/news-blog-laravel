@@ -14,8 +14,13 @@ return [
     |
     */
 
-    'default' => env('MAIL_MAILER', 'log'),
-
+    // 'default' => env('MAIL_MAILER', 'log'),
+    'mailgun' => [
+        'transport' => 'mailgun',
+        // 'client' => [
+        //     'timeout' => 5,
+        // ],
+    ],
     /*
     |--------------------------------------------------------------------------
     | Mailer Configurations
@@ -55,7 +60,7 @@ return [
 
         'postmark' => [
             'transport' => 'postmark',
-            // 'message_stream_id' => env('POSTMARK_MESSAGE_STREAM_ID'),
+            'message_stream_id' => env('POSTMARK_MESSAGE_STREAM_ID'),
             // 'client' => [
             //     'timeout' => 5,
             // ],
@@ -95,6 +100,10 @@ return [
             ],
         ],
 
+        'mailersend' => [
+            'transport' => 'mailersend',
+        ],
+
     ],
 
     /*
@@ -109,8 +118,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'nnxxhh2004@gmail.com'),
+        'name' => env('MAIL_FROM_NAME', 'XuanHong Blog'),
     ],
 
 ];

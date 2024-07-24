@@ -24,7 +24,6 @@
     <link rel="stylesheet" href="{{ asset('assets/admin/dist/css/adminlte.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/plugins/daterangepicker/daterangepicker.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/admin/plugins/summernote/summernote-bs4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/dist/css/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
@@ -92,39 +91,29 @@
                             <a href="{{url('admin')}}"
                             class="nav-link {{ Request::is('admin') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>Dashboard</p>
+                                <p>Bảng Điều Khiển</p>
                             </a>
                         </li>
                         {{-- @role('admin') --}}
                         <li class="nav-item">
                             <a href="{{ route('users.index') }}"
-                                class="nav-link {{ Route::is('users.index') ? 'active' : '' }}">
+                                class="nav-link {{ Request::is('admin/users*') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-user"></i>
-                                <p>Users
+                                <p>Người Dùng
                                     <span class="badge badge-info right"></span>
-                                </p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href=""
-                                class="nav-link {{ Route::is('admin.permission.index') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-hat-cowboy"></i>
-                                <p>Permission
-                                    <span class="badge badge-danger right"></span>
                                 </p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('categories.index') }}"
-                                class="nav-link {{ Route::is('categories.index') ? 'active' : '' }}">
+                                class="nav-link {{ Request::is('admin/categories*') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-list-alt"></i>
-                                <p>Category
+                                <p>Danh Mục
                                     <span class="badge badge-warning right"></span>
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href=""
                                 class="nav-link {{ Route::is('admin.subcategory.index') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-list"></i>
@@ -132,16 +121,16 @@
                                     <span class="badge badge-secondary right"></span>
                                 </p>
                             </a>
-                        </li>
+                        </li> --}}
                         <li class="nav-item">
-                            <a href=""
-                                class="nav-link {{ Route::is('admin.collection.index') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-file-pdf"></i>
-                                <p>Collection
+                            <a href="{{ route('news.index') }}"
+                                class="nav-link {{ Request::is('admin/news*') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-newspaper"></i>
+                                <p>Bài viết
                                     <span class="badge badge-primary right"></span>
                                 </p>
                             </a>
-                        </li>
+                        </li>                        
                         <li class="nav-item">
                             <a href=""
                                 class="nav-link {{ Route::is('admin.product.index') ? 'active' : '' }}">
@@ -170,8 +159,18 @@
 
             <!-- Main content -->
             <section class="content">
+                
                 <!-- Default box -->
                 @yield('content')
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
                 <!-- /.card -->
             </section>
 
@@ -203,8 +202,6 @@
     <script src="{{ asset('assets/admin/plugins/daterangepicker/daterangepicker.js') }}"></script>
     <!-- Tempusdominus Bootstrap 4 -->
     <script src="{{ asset('assets/admin/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
-    <!-- Summernote -->
-    <script src="{{ asset('assets/admin/plugins/summernote/summernote-bs4.min.js') }}"></script>
     <!-- overlayScrollbars -->
     <script src="{{ asset('assets/admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     <!-- AdminLTE App -->
@@ -219,32 +216,47 @@
     <script src="{{ asset('assets/admin/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('assets/admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
     <!-- jQuery -->
-<script src="{{ asset('assets/admin/plugins/jquery/jquery.min.js') }}"></script>
-<!-- Bootstrap 4 -->
-<script src="{{ asset('assets/admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<!-- DataTables  & Plugins -->
-<script src="{{ asset('assets/admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('assets/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('assets/admin/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
-<script src="{{ asset('assets/admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('assets/admin/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
-<script src="{{ asset('assets/admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('assets/admin/plugins/jszip/jszip.min.js') }}"></script>
-<script src="{{ asset('assets/admin/plugins/pdfmake/pdfmake.min.js') }}"></script>
-<script src="{{ asset('assets/admin/plugins/pdfmake/vfs_fonts.js') }}"></script>
-<script src="{{ asset('assets/admin/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
-<script src="{{ asset('assets/admin/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
-<script src="{{ asset('assets/admin/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
-<!-- AdminLTE App -->
-<script src="{{ asset('assets/admin/dist/js/adminlte.min.js') }}"></script>
-<!-- AdminLTE for demo purposes -->
-{{-- <script src="{{ asset('assets/admin/dist/js/demo.js') }}"></script> --}}
-<!-- Page specific script -->
+    <script src="{{ asset('assets/admin/plugins/jquery/jquery.min.js') }}"></script>
+    <!-- Bootstrap 4 -->
+    <script src="{{ asset('assets/admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- DataTables  & Plugins -->
+    <script src="{{ asset('assets/admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/plugins/jszip/jszip.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/plugins/pdfmake/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/plugins/pdfmake/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('assets/admin/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{ asset('assets/admin/dist/js/adminlte.min.js') }}"></script>
+    <!-- AdminLTE for demo purposes -->
+    {{-- <script src="{{ asset('assets/admin/dist/js/demo.js') }}"></script> --}}
+    <!-- Page specific script -->
     <!-- Toast cdn -->
     <script src="{{ asset('assets/admin/dist/js/toastr.min.js') }}"
         integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    {{-- summernote --}}
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+
     <script>
+        $(document).ready(function() {
+            $('#summernote').summernote({
+                height: 300
+            });
+        });
         $(function () {
             $("#example1").DataTable({
             "responsive": true, "lengthChange": false, "autoWidth": false,

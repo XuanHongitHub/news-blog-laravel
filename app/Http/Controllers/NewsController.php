@@ -4,14 +4,27 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\News;
 
 class NewsController extends Controller
 {
     public function index(Request $request)
     {
         $body['title'] = 'Trang chủ';
-
-        return view('frontend.pages.home')->with(compact('body'));
+        $latestPosts = News::latest()->take(3)->get();
+        $mainPost = News::latest()->first();
+        $subPostsFirstPart = News::latest()->skip(1)->take(3)->get();
+        $subPostsSecondPart = News::latest()->skip(4)->take(3)->get();
+        $trendingPosts = News::orderBy('views', 'desc')->take(5)->get();
+        $data = [
+            'latestPosts' => $latestPosts,
+            'mainPost' => $mainPost,
+            'subPostsFirstPart' => $subPostsFirstPart,
+            'subPostsSecondPart' => $subPostsSecondPart,
+            'trendingPosts' => $trendingPosts,
+            'body' => $body,
+        ];
+        return view('frontend.pages.home', $data);
     }
     function single_post($slug = '')
     {
@@ -49,15 +62,6 @@ class NewsController extends Controller
         return view('frontend.pages.single-category', $data);
     }
 
-    // function single_category($category_id = 0){
-    //     $body['title'] = 'Tin tức';
-
-    //     $category_arr = DB::table('categories')->where('id', $category_id)->first();
-    //     $list_news = DB::table('news')->where('category_id', $category_id)->get();
-    //     $data = ['category_id'=>$category_id, 'list_news'=>$list_news, 'category_arr'=>$category_arr];
-    //     return view('frontend.pages.single-category', $data)->with(compact('body'));
-    // }
-
     public function searchResults(Request $request)
     {
         $query = $request->input('query');
@@ -73,4 +77,5 @@ class NewsController extends Controller
         $data = ['query' => $query, 'results' => $results];
         return view('frontend.pages.search-result', compact('data', 'body'));
     }
+
 }

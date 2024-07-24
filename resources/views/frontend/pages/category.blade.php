@@ -11,14 +11,14 @@
 
             <div class="d-md-flex post-entry-2 half">
               <a href="single-post.html" class="me-4 thumbnail">
-                <img src="assets/img/post-landscape-6.jpg" alt="" class="img-fluid">
+                <img src="{{ asset('assets/img/post-landscape-6.jpg') }}" alt="" class="img-fluid">
               </a>
               <div>
                 <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
                 <h3><a href="single-post.html">What is the son of Football Coach John Gruden, Deuce Gruden doing Now?</a></h3>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio placeat exercitationem magni voluptates dolore. Tenetur fugiat voluptates quas, nobis error deserunt aliquam temporibus sapiente, laudantium dolorum itaque libero eos deleniti?</p>
                 <div class="d-flex align-items-center author">
-                  <div class="photo"><img src="assets/img/person-2.jpg" alt="" class="img-fluid"></div>
+                  <div class="photo"><img src="{{ asset('assets/img/person-2.jpg') }}" alt="" class="img-fluid"></div>
                   <div class="name">
                     <h3 class="m-0 p-0">Wade Warren</h3>
                   </div>
@@ -28,14 +28,14 @@
 
             <div class="d-md-flex post-entry-2 half">
               <a href="single-post.html" class="me-4 thumbnail">
-                <img src="assets/img/post-landscape-1.jpg" alt="" class="img-fluid">
+                <img src="{{ asset('assets/img/post-landscape-1.jpg') }}" alt="" class="img-fluid">
               </a>
               <div>
                 <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
                 <h3><a href="single-post.html">What is the son of Football Coach John Gruden, Deuce Gruden doing Now?</a></h3>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio placeat exercitationem magni voluptates dolore. Tenetur fugiat voluptates quas, nobis error deserunt aliquam temporibus sapiente, laudantium dolorum itaque libero eos deleniti?</p>
                 <div class="d-flex align-items-center author">
-                  <div class="photo"><img src="assets/img/person-2.jpg" alt="" class="img-fluid"></div>
+                  <div class="photo"><img src="{{ asset('assets/img/person-2.jpg') }}" alt="" class="img-fluid"></div>
                   <div class="name">
                     <h3 class="m-0 p-0">Wade Warren</h3>
                   </div>
@@ -45,14 +45,14 @@
 
             <div class="d-md-flex post-entry-2 half">
               <a href="single-post.html" class="me-4 thumbnail">
-                <img src="assets/img/post-landscape-2.jpg" alt="" class="img-fluid">
+                <img src="{{ asset('assets/img/post-landscape-2.jpg') }}" alt="" class="img-fluid">
               </a>
               <div>
                 <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
                 <h3><a href="single-post.html">What is the son of Football Coach John Gruden, Deuce Gruden doing Now?</a></h3>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio placeat exercitationem magni voluptates dolore. Tenetur fugiat voluptates quas, nobis error deserunt aliquam temporibus sapiente, laudantium dolorum itaque libero eos deleniti?</p>
                 <div class="d-flex align-items-center author">
-                  <div class="photo"><img src="assets/img/person-2.jpg" alt="" class="img-fluid"></div>
+                  <div class="photo"><img src="{{ asset('assets/img/person-2.jpg') }}" alt="" class="img-fluid"></div>
                   <div class="name">
                     <h3 class="m-0 p-0">Wade Warren</h3>
                   </div>
@@ -62,14 +62,14 @@
 
             <div class="d-md-flex post-entry-2 half">
               <a href="single-post.html" class="me-4 thumbnail">
-                <img src="assets/img/post-landscape-3.jpg" alt="" class="img-fluid">
+                <img src="{{ asset('assets/img/post-landscape-3.jpg') }}" alt="" class="img-fluid">
               </a>
               <div>
                 <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
                 <h3><a href="single-post.html">What is the son of Football Coach John Gruden, Deuce Gruden doing Now?</a></h3>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio placeat exercitationem magni voluptates dolore. Tenetur fugiat voluptates quas, nobis error deserunt aliquam temporibus sapiente, laudantium dolorum itaque libero eos deleniti?</p>
                 <div class="d-flex align-items-center author">
-                  <div class="photo"><img src="assets/img/person-2.jpg" alt="" class="img-fluid"></div>
+                  <div class="photo"><img src="{{ asset('assets/img/person-2.jpg') }}" alt="" class="img-fluid"></div>
                   <div class="name">
                     <h3 class="m-0 p-0">Wade Warren</h3>
                   </div>
@@ -79,14 +79,14 @@
 
             <div class="d-md-flex post-entry-2 half">
               <a href="single-post.html" class="me-4 thumbnail">
-                <img src="assets/img/post-landscape-4.jpg" alt="" class="img-fluid">
+                <img src="{{ asset('assets/img/post-landscape-4.jpg') }}" alt="" class="img-fluid">
               </a>
               <div>
                 <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
                 <h3><a href="single-post.html">What is the son of Football Coach John Gruden, Deuce Gruden doing Now?</a></h3>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio placeat exercitationem magni voluptates dolore. Tenetur fugiat voluptates quas, nobis error deserunt aliquam temporibus sapiente, laudantium dolorum itaque libero eos deleniti?</p>
                 <div class="d-flex align-items-center author">
-                  <div class="photo"><img src="assets/img/person-2.jpg" alt="" class="img-fluid"></div>
+                  <div class="photo"><img src="{{ asset('assets/img/person-2.jpg') }}" alt="" class="img-fluid"></div>
                   <div class="name">
                     <h3 class="m-0 p-0">Wade Warren</h3>
                   </div>
@@ -250,7 +250,7 @@
               <div class="video-post">
                 <a href="https://www.youtube.com/watch?v=AiFfDjmd0jU" class="glightbox link-video">
                   <span class="bi-play-fill"></span>
-                  <img src="assets/img/post-landscape-5.jpg" alt="" class="img-fluid">
+                  <img src="{{ asset('assets/img/post-landscape-5.jpg') }}" alt="" class="img-fluid">
                 </a>
               </div>
             </div><!-- End Video -->
@@ -293,13 +293,13 @@
   <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="{{ asset('assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="{{ asset('assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="{{ asset('assets/vendor/aos/aos.js"></script>
+  <script src="{{ asset('assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script src="{{ asset('assets/js/main.js"></script>
 
   @endsection
