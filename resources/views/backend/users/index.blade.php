@@ -69,20 +69,9 @@
                                         <td>{{ $user->roles }}</td>
                                         <td>{{ $user->created_at }}</td>
                                         <td>
-                                            <div class="row">
-                                                <a class="btn btn-icon btn-sm btn-primary text-white edit-data"
-                                                    href="{{ route('users.edit', ['user' => $user->id]) }}">Sửa</a>
-                                                &nbsp;&nbsp;
-                                                <form method="POST"
-                                                    action="{{ route('users.destroy', ['user' => $user->id]) }}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button
-                                                        class="btn btn-icon btn-sm btn-danger text-white delete-data"
-                                                        type="submit"
-                                                        onclick="return confirm('Xác nhận xóa?')">Xóa</button>
-                                                </form>
-                                            </div>
+                                            <a class="btn btn-icon btn-sm btn-primary text-white edit-data"
+                                                href="{{ route('users.edit', ['user' => $user->id]) }}">Sửa</a>
+                                            </form>
                                         </td>
                                     </tr>
                                     @endforeach

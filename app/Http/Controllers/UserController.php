@@ -15,11 +15,11 @@ class UserController extends Controller
         $body = [
             'title' => 'Trang chủ',
         ];
-        
-        $users = User::all(); 
+
+        $users = User::all();
 
         // $data = Category::orderBy('id','DESC')->get();
-        return view('backend.users.index',compact('users', 'body'));
+        return view('backend.users.index', compact('users', 'body'));
     }
 
     /**
@@ -51,7 +51,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('backend.users.edit', compact('user'));
     }
 
     /**
@@ -59,8 +59,16 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $request->validate([
+            'roles' => 'required|string|max:255',
+        ]);
+
+        $user->roles = $request->input('roles');
+        $user->save();
+
+        return redirect()->route('users.index')->with('success', 'Vai trò đã được cập nhật thành công.');
     }
+
 
     /**
      * Remove the specified resource from storage.

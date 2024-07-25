@@ -26,7 +26,8 @@
     <link rel="stylesheet" href="{{ asset('assets/admin/plugins/daterangepicker/daterangepicker.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/dist/css/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('assets/admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
     @yield('css')
 
@@ -61,7 +62,7 @@
                 </li>
             </ul>
         </nav>
-        
+
         <!-- /.navbar -->
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-{{ Auth::user()->mode }}-primary elevation-4">
@@ -88,8 +89,7 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
                         <li class="nav-item">
-                            <a href="{{url('admin')}}"
-                            class="nav-link {{ Request::is('admin') ? 'active' : '' }}">
+                            <a href="{{url('admin')}}" class="nav-link {{ Request::is('admin') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>Bảng Điều Khiển</p>
                             </a>
@@ -116,11 +116,11 @@
                         {{-- <li class="nav-item">
                             <a href=""
                                 class="nav-link {{ Route::is('admin.subcategory.index') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-list"></i>
-                                <p>Sub Category
-                                    <span class="badge badge-secondary right"></span>
-                                </p>
-                            </a>
+                        <i class="nav-icon fas fa-list"></i>
+                        <p>Sub Category
+                            <span class="badge badge-secondary right"></span>
+                        </p>
+                        </a>
                         </li> --}}
                         <li class="nav-item">
                             <a href="{{ route('news.index') }}"
@@ -130,10 +130,9 @@
                                     <span class="badge badge-primary right"></span>
                                 </p>
                             </a>
-                        </li>                        
+                        </li>
                         <li class="nav-item">
-                            <a href=""
-                                class="nav-link {{ Route::is('admin.product.index') ? 'active' : '' }}">
+                            <a href="" class="nav-link {{ Route::is('admin.product.index') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>Products
                                     <span class="badge badge-warning right"></span>
@@ -142,8 +141,7 @@
                         </li>
                         {{-- @endrole --}}
                         <li class="nav-item">
-                            <a href=""
-                                class="nav-link {{ Route::is('admin.profile.edit') ? 'active' : '' }}">
+                            <a href="" class="nav-link {{ Route::is('admin.profile.edit') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-id-card"></i>
                                 <p>Profile</p>
                             </a>
@@ -156,23 +154,23 @@
             <!-- /.sidebar -->
         </aside>
 
+        <!-- Main content -->
+        <section class="content">
 
-            <!-- Main content -->
-            <section class="content">
-                
-                <!-- Default box -->
-                @yield('content')
-                @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
+            <!-- Default box -->
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
             @endif
-                <!-- /.card -->
-            </section>
+            @yield('content')
+
+            <!-- /.card -->
+        </section>
 
         <!-- /.content-wrapper -->
     </div>
@@ -201,7 +199,8 @@
     <script src="{{ asset('assets/admin/plugins/moment/moment.min.js') }}"></script>
     <script src="{{ asset('assets/admin/plugins/daterangepicker/daterangepicker.js') }}"></script>
     <!-- Tempusdominus Bootstrap 4 -->
-    <script src="{{ asset('assets/admin/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}">
+    </script>
     <!-- overlayScrollbars -->
     <script src="{{ asset('assets/admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     <!-- AdminLTE App -->
@@ -243,10 +242,14 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     {{-- summernote --}}
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
 
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
@@ -257,19 +260,21 @@
                 height: 300
             });
         });
-        $(function () {
+        $(function() {
             $("#example1").DataTable({
-            "responsive": true, "lengthChange": false, "autoWidth": false,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true,
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
             });
         });
         // Example starter JavaScript for disabling form submissions if there are invalid fields
@@ -297,24 +302,24 @@
         }
     </script>
     @if (session()->has('success'))
-        <script>
-            toastr.success("{{ session()->get('success') }}")
-        </script>
+    <script>
+        toastr.success("{{ session()->get('success') }}")
+    </script>
     @endif
     @if (session()->has('warning'))
-        <script>
-            toastr.warning("{{ session()->get('warning') }}")
-        </script>
+    <script>
+        toastr.warning("{{ session()->get('warning') }}")
+    </script>
     @endif
     @if (session()->has('info'))
-        <script>
-            toastr.info("{{ session()->get('info') }}")
-        </script>
+    <script>
+        toastr.info("{{ session()->get('info') }}")
+    </script>
     @endif
     @if (session()->has('error'))
-        <script>
-            toastr.error("{{ session()->get('error') }}")
-        </script>
+    <script>
+        toastr.error("{{ session()->get('error') }}")
+    </script>
     @endif
 
     @yield('js')

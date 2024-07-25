@@ -36,9 +36,16 @@
     </div>
   </section><!-- End Hero Slider Section -->
 
+
+
+
   <!-- ======= Post Grid Section ======= -->
   <section id="posts" class="posts">
     <div class="container" data-aos="fade-up">
+      <div class="section-header d-flex justify-content-between align-items-center mb-5">
+        <h2>Tin Mới</h2>
+        <div><a href="{{ url('/all-posts') }}" class="more">Xem Thêm</a></div>
+      </div>
       <div class="row g-5">
         <div class="col-lg-4">
           <div class="row">
@@ -47,7 +54,8 @@
                   class="img-fluid"></a>
               <div class="post-meta"><span
                   class="date">{{ \App\Models\Category::find($mainPost->category_id)->category_name }}</span> <span
-                  class="mx-1">&bullet;</span> <span>{{ $mainPost->created_at->format('M jS \'y') }}</span></div>
+                  class="mx-1">&bullet;</span>
+                <span>{{ Carbon\Carbon::parse($mainPost->created_at)->translatedFormat('jS F Y') }}</span></div>
               <h2><a href="{{ url('/single-post',[$mainPost->slug]) }}">{{ $mainPost->title }}</a></h2>
               <p class="mb-4 d-block">{{ $mainPost->summary }}</p>
             </div>
@@ -63,10 +71,12 @@
 
                   <div class="post-entry-1">
                     <a href="{{ url('/single-post',[$post->slug]) }}"><img src="{{ asset($post->preview) }}"
-                        class="img-fluid subpost-img" alt="" class="img-fluid"></a>
+                        class="img-fluid subpost-img" alt=""></a>
                     <div class="post-meta"><span
                         class="date">{{ \App\Models\Category::find($post->category_id)->category_name }}</span> <span
-                        class="mx-1">&bullet;</span> <span>{{ $post->created_at->format('M jS \'y') }}</span></div>
+                        class="mx-1">&bullet;</span>
+                      <span>{{ Carbon\Carbon::parse($post->created_at)->translatedFormat('jS F Y') }}
+                      </span></div>
                     <h2><a href="{{ url('/single-post',[$post->slug]) }}">{{ $post->title }}</a></h2>
                   </div>
                   @endforeach
@@ -80,7 +90,9 @@
                         class="img-fluid subpost-img" alt="" class="img-fluid"></a>
                     <div class="post-meta"><span
                         class="date">{{ \App\Models\Category::find($post->category_id)->category_name }}</span> <span
-                        class="mx-1">&bullet;</span> <span>{{ $post->created_at->format('M jS \'y') }}</span></div>
+                        class="mx-1">&bullet;</span>
+                      <span>{{Carbon\Carbon::parse($post->created_at)->translatedFormat('jS F Y')  }}
+                      </span></div>
                     <h2><a href="{{ url('/single-post',[$post->slug]) }}">{{ $post->title }}</a></h2>
                   </div>
                   @endforeach
@@ -97,7 +109,7 @@
                     <a href="{{ url('/single-post',[$post->slug]) }}">
                       <span class="number">{{ $index + 1 }}</span>
                       <h3>{{ $post->title }}</h3>
-                      <span class="author">Người Đăng</span>
+                      <span class="date">{{Carbon\Carbon::parse($post->created_at)->translatedFormat('jS F Y')  }}</span>
                     </a>
                   </li>
                   @endforeach
@@ -111,36 +123,28 @@
       </div> <!-- End .row -->
     </div>
   </section> <!-- End Post Grid Section -->
-  <!-- ======= Culture Category Section ======= -->
+  <!-- ======= Danh Mục Công Nghệ Section ======= -->
   <section class="category-section">
     <div class="container" data-aos="fade-up">
 
       <div class="section-header d-flex justify-content-between align-items-center mb-5">
-        <h2>Culture</h2>
-        <div><a href="category.html" class="more">See All Culture</a></div>
+        <h2>Công Nghệ</h2>
+        <div><a href="{{ url('/single-category', 'cong-nghe') }}" class="more">Các Bài Viết Công Nghệ</a></div>
       </div>
 
       <div class="row">
         <div class="col-md-9">
 
           <div class="d-lg-flex post-entry-2">
-            <a href="single-post.html" class="me-4 thumbnail mb-4 mb-lg-0 d-inline-block">
-              <img src="assets/img/post-landscape-6.jpg" alt="" class="img-fluid">
+            <a href="{{ url('/single-post', [$latestTechPost->slug]) }}" class="me-4 thumbnail mb-4 mb-lg-0 d-inline-block">
+              <img src="{{ $latestTechPost->preview }}" alt="" class="img-fluid">
             </a>
             <div>
-              <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul 5th
-                  '22</span></div>
-              <h3><a href="single-post.html">What is the son of Football Coach John Gruden, Deuce Gruden doing Now?</a>
+              <div class="post-meta"><span class="date"> {{ \App\Models\Category::find($latestTechPost->category_id)->category_name }}</span> <span class="mx-1">&bullet;</span> <span>{{Carbon\Carbon::parse($latestTechPost->created_at)->translatedFormat('jS F Y')  }}</span></div>
+              <h3><a href="{{ url('/single-post', [$latestTechPost->slug]) }}">{{ $latestTechPost->title }}</a>
               </h3>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio placeat exercitationem magni
-                voluptates dolore. Tenetur fugiat voluptates quas, nobis error deserunt aliquam temporibus sapiente,
-                laudantium dolorum itaque libero eos deleniti?</p>
-              <div class="d-flex align-items-center author">
-                <div class="photo"><img src="assets/img/person-2.jpg" alt="" class="img-fluid"></div>
-                <div class="name">
-                  <h3 class="m-0 p-0">Wade Warren</h3>
-                </div>
-              </div>
+              <p>{{ $latestTechPost->summary }}</p>
+              
             </div>
           </div>
 

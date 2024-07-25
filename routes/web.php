@@ -16,6 +16,7 @@ use App\Http\Controllers\PostController;
 Route::get('/', [NewsController::class, 'index'])->name('home');
 Route::get('/single-post/{slug}', [NewsController::class, 'single_post']);
 Route::get('/single-category/{slug}', [NewsController::class, 'single_category']);
+Route::get('/all-posts', [NewsController::class, 'allPosts'])->name('all-posts');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::get('/search-results', [NewsController::class, 'searchResults'])->name('search.results');

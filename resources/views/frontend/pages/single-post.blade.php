@@ -11,7 +11,7 @@
           <!-- ======= Single Post Content ======= -->
           <div class="single-post">
             <div class="post-meta"><span class="date">{{ $category_arr->category_name }}</span> <span class="mx-1">&bullet;</span>
-              <span>{{ $news->created_at }}</span></div>
+              <span>{{ Carbon\Carbon::parse($news->created_at)->translatedFormat('jS F Y') }}</span></div>
             <h1 class="mb-5">{{ $news->title }}</h1>
             <h6 class="fw-bold mb-2">{{ $news->summary }}</h6>
             

@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-12">
-                    <h1 class="d-inline-block">Thêm và Quản lí Danh Mục</h1>
+                    <h1 class="d-inline-block">Vai Trò Người Dùng</h1>
                 </div>
             </div>
         </div>
@@ -18,38 +18,27 @@
                 <div class="col-md-11 ml-5">
                     <div class="card card-secondary">
                         <div class="card-header">
-                            <h3 class="card-title">Sửa Danh Mục</h3>
+                            <h3 class="card-title">Sửa Vai Trò</h3>
                         </div>
-                        <form method="POST" action="{{ route('categories.update', $category) }}">
+                        <form method="POST" action="{{ route('users.update', $user) }}">
                             @csrf
                             @method('PUT')
-                            <input type="hidden" name="csrf_test_name" value="7b70748c788d50122e2e44e88cde0708">
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label>Name</label>
-                                    <input type="text" name="category_name" id="category_name" value="{{ $category->category_name }}" class="form-control" placeholder="category name"
-                                        required="">
-                                </div>
-                                <!-- //------------------------------------- -->
-                                {{-- <div class="form-group">
-                                    <label>Image <small class="text-danger">Only png, jpg, webp, gif and jpeg image
-                                            allow</small></label>
-                                    <div class="custom-file">
-                                        <input name="file" type="file" accept="image/*" class="custom-file-input"
-                                            id="exampleInputFile1" required="">
-                                        <label class="custom-file-label" for="customFile">Choose
-                                            file</label>
-                                    </div>
-                                </div> --}}
-                                <div class="form-group">
-                                    <p style="display: none" id="img_error_msg" class="alert alert-danger">
-                                    </p>
+                                    <label>Vai Trò</label>
+                                    <select name="roles" id="roles" class="form-control" required="">
+                                        <option value="user" {{ $user->roles == 'user' ? 'selected' : '' }}>Người Dùng
+                                        </option>
+                                        <option value="admin" {{ $user->roles == 'admin' ? 'selected' : '' }}>Admin
+                                            (Quản Trị)</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary">Cập Nhật</button>
                             </div>
                         </form>
+
                     </div>
                 </div>
 

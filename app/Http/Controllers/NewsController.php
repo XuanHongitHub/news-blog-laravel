@@ -15,13 +15,15 @@ class NewsController extends Controller
         $mainPost = News::latest()->first();
         $subPostsFirstPart = News::latest()->skip(1)->take(3)->get();
         $subPostsSecondPart = News::latest()->skip(4)->take(3)->get();
-        $trendingPosts = News::orderBy('views', 'desc')->take(5)->get();
+        $trendingPosts = News::orderBy('views', 'desc')->take(6)->get();
+        $latestTechPost = News::where('category_id', 1)->latest()->first();
         $data = [
             'latestPosts' => $latestPosts,
             'mainPost' => $mainPost,
             'subPostsFirstPart' => $subPostsFirstPart,
             'subPostsSecondPart' => $subPostsSecondPart,
             'trendingPosts' => $trendingPosts,
+            'latestTechPost' => $latestTechPost,
             'body' => $body,
         ];
         return view('frontend.pages.home', $data);
@@ -49,7 +51,7 @@ class NewsController extends Controller
             abort(404, 'Category not found');
         }
 
-        $list_news = DB::table('news')->where('category_id', $category_arr->id)->get();
+        $list_news = DB::table('news')->where('category_id', $category_arr->id)->paginate(5);
 
         $body['title'] = $category_arr->category_name;
         $data = [
@@ -60,6 +62,14 @@ class NewsController extends Controller
         ];
 
         return view('frontend.pages.single-category', $data);
+    }
+
+    public function allPosts()
+    {
+        $body['title'] = 'Tin Mới';
+
+        $list_news = News::paginate(10); // Lấy 10 bài viết mỗi trang
+        return view('frontend.pages.all-posts', compact('list_news', 'body'));
     }
 
     public function searchResults(Request $request)

@@ -1356,9 +1356,29 @@ section {
 
 .subpost-img {
   height: 10rem;
-  /* Chiều cao cố định */
-  width: 100%;
-  /* Đảm bảo tính responsive theo chiều ngang */
   object-fit: cover;
-  /* Giúp hình ảnh không bị méo khi thay đổi kích thước */
+}
+
+@media (max-width: 1200px) {
+  .subpost-img {
+    height: 10rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .subpost-img {
+    height: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .subpost-img {
+    height: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .subpost-img {
+    height: 3rem;
+  }
 }
