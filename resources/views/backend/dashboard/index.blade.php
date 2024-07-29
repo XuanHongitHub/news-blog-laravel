@@ -1,5 +1,6 @@
 @extends('backend.layouts.master')
 @section('content')
+  @include('components.errors-admin')
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->

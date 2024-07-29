@@ -17,12 +17,17 @@ class Admin
      */
     
 
-    public function handle($request, Closure $next)
-    {
-        // if (Auth::check() && Auth::user()->roles == 'admin') {
-        //     return $next($request);
-        // }
-
-        // return redirect('/');
-    }
+     public function handle($request, Closure $next)
+     {
+         if (Auth::check()) {
+             if (Auth::user()->roles == 'admin') {
+                 return $next($request);
+             } else {
+                 return redirect('/no-permission')->with('error', 'Bạn không có quyền truy cập trang quản trị viên.');
+             }
+         }
+     
+         return redirect('/login');
+     }     
+     
 }

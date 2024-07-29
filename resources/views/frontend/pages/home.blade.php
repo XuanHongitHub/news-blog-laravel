@@ -36,9 +36,6 @@
     </div>
   </section><!-- End Hero Slider Section -->
 
-
-
-
   <!-- ======= Post Grid Section ======= -->
   <section id="posts" class="posts">
     <div class="container" data-aos="fade-up">
@@ -109,7 +106,8 @@
                     <a href="{{ url('/single-post',[$post->slug]) }}">
                       <span class="number">{{ $index + 1 }}</span>
                       <h3>{{ $post->title }}</h3>
-                      <span class="date">{{Carbon\Carbon::parse($post->created_at)->translatedFormat('jS F Y')  }}</span>
+                      <span
+                        class="date">{{Carbon\Carbon::parse($post->created_at)->translatedFormat('jS F Y')  }}</span>
                     </a>
                   </li>
                   @endforeach
@@ -136,48 +134,60 @@
         <div class="col-md-9">
 
           <div class="d-lg-flex post-entry-2">
-            <a href="{{ url('/single-post', [$latestTechPost->slug]) }}" class="me-4 thumbnail mb-4 mb-lg-0 d-inline-block">
-              <img src="{{ $latestTechPost->preview }}" alt="" class="img-fluid">
+            <a href="{{ url('/single-post', [$techPost[0]->slug]) }}"
+              class="me-4 thumbnail mb-4 mb-lg-0 d-inline-block">
+              <img src="{{ $techPost[0]->preview }}" alt="" class="img-fluid">
             </a>
             <div>
-              <div class="post-meta"><span class="date"> {{ \App\Models\Category::find($latestTechPost->category_id)->category_name }}</span> <span class="mx-1">&bullet;</span> <span>{{Carbon\Carbon::parse($latestTechPost->created_at)->translatedFormat('jS F Y')  }}</span></div>
-              <h3><a href="{{ url('/single-post', [$latestTechPost->slug]) }}">{{ $latestTechPost->title }}</a>
+              <div class="post-meta"><span class="date">
+                  {{ \App\Models\Category::find($techPost[0]->category_id)->category_name }}</span> <span
+                  class="mx-1">&bullet;</span>
+                <span>{{Carbon\Carbon::parse($techPost[0]->created_at)->translatedFormat('jS F Y')  }}</span></div>
+              <h3><a href="{{ url('/single-post', [$techPost[0]->slug]) }}">{{ $techPost[0]->title }}</a>
               </h3>
-              <p>{{ $latestTechPost->summary }}</p>
-              
+              <p>{{ $techPost[0]->summary }}</p>
+
             </div>
           </div>
 
           <div class="row">
             <div class="col-lg-4">
               <div class="post-entry-1 border-bottom">
-                <a href="single-post.html"><img src="assets/img/post-landscape-1.jpg" alt="" class="img-fluid"></a>
-                <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul
-                    5th '22</span></div>
-                <h2 class="mb-2"><a href="single-post.html">11 Work From Home Part-Time Jobs You Can Do Now</a></h2>
-                <span class="author mb-3 d-block">Jenny Wilson</span>
-                <p class="mb-4 d-block">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vero temporibus
-                  repudiandae, inventore pariatur numquam cumque possimus</p>
+                <a href="{{ url('/single-post', [$techPost[1]->slug]) }}"><img src="{{ $techPost[1]->preview }}" alt=""
+                    class="img-fluid"></a>
+                <div class="post-meta"><span class="date">
+                    {{ \App\Models\Category::find($techPost[1]->category_id)->category_name }}</span> <span
+                    class="mx-1">&bullet;</span>
+                  <span>{{Carbon\Carbon::parse($techPost[1]->created_at)->translatedFormat('jS F Y')  }}</span></div>
+                <h2 class="mb-2"><a href="{{ url('/single-post', [$techPost[1]->slug]) }}">{{ $techPost[1]->title }}</a>
+                </h2>
+                {{-- <span class="author mb-3 d-block">Jenny Wilson</span> --}}
+                <p class="mb-4 d-block">{{ $techPost[1]->summary }}</p>
               </div>
 
               <div class="post-entry-1">
-                <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul
-                    5th '22</span></div>
-                <h2 class="mb-2"><a href="single-post.html">5 Great Startup Tips for Female Founders</a></h2>
-                <span class="author mb-3 d-block">Jenny Wilson</span>
+                <div class="post-meta"><span
+                    class="date">{{ \App\Models\Category::find($techPost[2]->category_id)->category_name }}</span>
+                  <span class="mx-1">&bullet;</span>
+                  <span>{{Carbon\Carbon::parse($techPost[2]->created_at)->translatedFormat('jS F Y')  }}</span></div>
+                <h2 class="mb-2"><a href="{{ url('/single-post', [$techPost[2]->slug]) }}">{{ $techPost[2]->title }}</a>
+                </h2>
+                {{-- <span class="author mb-3 d-block">Jenny Wilson</span> --}}
               </div>
             </div>
             <div class="col-lg-8">
-              <div class="post-entry-1">
-                <a href="single-post.html"><img src="assets/img/post-landscape-2.jpg" alt="" class="img-fluid"></a>
-                <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul
-                    5th '22</span></div>
-                <h2 class="mb-2"><a href="single-post.html">How to Avoid Distraction and Stay Focused During Video
-                    Calls?</a></h2>
-                <span class="author mb-3 d-block">Jenny Wilson</span>
-                <p class="mb-4 d-block">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vero temporibus
-                  repudiandae, inventore pariatur numquam cumque possimus</p>
-              </div>
+              @if (isset($techPost[3]))
+                <div class="post-entry-1">
+                  <a href="{{ url('/single-post', [$techPost[3]->slug]) }}"><img src="{{ $techPost[3]->preview }}" alt="" class="img-fluid"></a>
+                  <div class="post-meta"><span
+                      class="date">{{ \App\Models\Category::find($techPost[3]->category_id)->category_name }}</span> <span
+                      class="mx-1">&bullet;</span>
+                    <span>{{Carbon\Carbon::parse($techPost[3]->created_at)->translatedFormat('jS F Y')  }}</span></div>
+                  <h2 class="mb-2"><a href="{{ url('/single-post', [$techPost[3]->slug]) }}">{{ $techPost[3]->title }}</a></h2>
+                  {{-- <span class="author mb-3 d-block">Jenny Wilson</span> --}}
+                  <p class="mb-4 d-block">{{ $techPost[3]->summary }}</p>
+                </div>
+              @endif
             </div>
           </div>
         </div>

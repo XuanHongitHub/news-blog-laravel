@@ -38,6 +38,8 @@
   <!-- Scripts -->
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+
+
 </head>
 
 <body style="background-color: #f9fbfe">
@@ -79,6 +81,7 @@
       </nav>
 
       <div class="position-relative flex">
+
         @if (Route::has('login'))
         @auth
         <!-- Settings Dropdown -->
@@ -103,6 +106,14 @@
               <x-dropdown-link :href="route('profile.edit')">
                 {{ __('Thông tin tài khoản') }}
               </x-dropdown-link>
+
+              @auth
+              @if (Auth::user()->roles == 'admin')
+              <x-dropdown-link :href="route('admin.index')">
+                {{ __('Truy cập trang quản trị') }}
+              </x-dropdown-link>
+              @endif
+              @endauth
 
               <!-- Authentication -->
               <form method="POST" action="{{ route('logout') }}">
@@ -148,7 +159,13 @@
 
   </header><!-- End Header -->
 
+  {{-- Error Message --}}
+  @include('components.errors')
+  {{-- End Error Message --}}
+
+  <!-- ======= Main Content ======= -->
   @yield('content')
+  <!-- ======= End Main Content  ======= -->
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">

@@ -1,6 +1,7 @@
 @extends('backend.layouts.master')
 @section('content')
 <div class="content-wrapper">
+    @include('components.errors-admin')
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">

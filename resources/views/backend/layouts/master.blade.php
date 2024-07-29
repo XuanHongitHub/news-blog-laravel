@@ -48,17 +48,16 @@
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
+                    <a class="btn btn-primary btn-sm mx-2" href="{{ url('/') }}">Trang Người Dùng</a>
+                </li>
+                <li class="nav-item">
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <input type="submit" name="submit" value="Đăng Xuất" class="btn btn-primary btn-sm">
-                            {{-- <a :href="route('logout')"
-                                onclick="event.preventDefault();
-                                            this.closest('form').submit();">
-                                {{ __('Log Out') }}
-                            </a> --}}
                         </form>
+                    </form>
                 </li>
             </ul>
         </nav>
@@ -158,18 +157,9 @@
         <section class="content">
 
             <!-- Default box -->
-            @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-            @endif
             @yield('content')
-
             <!-- /.card -->
+
         </section>
 
         <!-- /.content-wrapper -->
@@ -207,15 +197,6 @@
     <script src="{{ asset('assets/admin/dist/js/adminlte.js') }}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('assets/admin/dist/js/pages/dashboard.js') }}"></script>
-    <!-- DataTables -->
-    <script src="{{ asset('assets/admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('assets/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('assets/admin/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('assets/admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('assets/admin/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('assets/admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
-    <!-- jQuery -->
-    <script src="{{ asset('assets/admin/plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap 4 -->
     <script src="{{ asset('assets/admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- DataTables  & Plugins -->
@@ -225,24 +206,21 @@
     <script src="{{ asset('assets/admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('assets/admin/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('assets/admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('assets/admin/plugins/jszip/jszip.min.js') }}"></script>
-    <script src="{{ asset('assets/admin/plugins/pdfmake/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('assets/admin/plugins/pdfmake/vfs_fonts.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.10/pdfmake.min.js" ></script>   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.10/vfs_fonts.js" ></script>    
     <script src="{{ asset('assets/admin/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('assets/admin/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('assets/admin/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
     <!-- AdminLTE App -->
-    <script src="{{ asset('assets/admin/dist/js/adminlte.min.js') }}"></script>
+    {{-- <script src="{{ asset('assets/admin/dist/js/adminlte.min.js') }}"></script> --}}
     <!-- AdminLTE for demo purposes -->
     {{-- <script src="{{ asset('assets/admin/dist/js/demo.js') }}"></script> --}}
     <!-- Page specific script -->
     <!-- Toast cdn -->
-    <script src="{{ asset('assets/admin/dist/js/toastr.min.js') }}"
-        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{{ asset('assets/admin/dist/js/toastr.min.js') }}" ></script> 
     {{-- summernote --}}
 
-    {{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
     </script>

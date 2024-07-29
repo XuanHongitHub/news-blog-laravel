@@ -11,19 +11,15 @@ class NewsController extends Controller
     public function index(Request $request)
     {
         $body['title'] = 'Trang chủ';
-        $latestPosts = News::latest()->take(3)->get();
+
         $mainPost = News::latest()->first();
         $subPostsFirstPart = News::latest()->skip(1)->take(3)->get();
         $subPostsSecondPart = News::latest()->skip(4)->take(3)->get();
-        $trendingPosts = News::orderBy('views', 'desc')->take(6)->get();
-        $latestTechPost = News::where('category_id', 1)->latest()->first();
         $data = [
-            'latestPosts' => $latestPosts,
             'mainPost' => $mainPost,
             'subPostsFirstPart' => $subPostsFirstPart,
             'subPostsSecondPart' => $subPostsSecondPart,
-            'trendingPosts' => $trendingPosts,
-            'latestTechPost' => $latestTechPost,
+            // 'latestTechPost' => $latestTechPost,
             'body' => $body,
         ];
         return view('frontend.pages.home', $data);

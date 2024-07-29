@@ -29,13 +29,16 @@ Route::middleware('auth')->group(function () {
 });
 
 // Admin
-Route::get('admin', [DashboardController::class, 'index'])->name('admin');
-// Route::resource('admin/dashboard', \App\Http\Controllers\AdminController::class);
-Route::resource('admin/categories', CategoryController::class);
-Route::resource('admin/users', UserController::class);
-Route::resource('admin/news', PostController::class);
 
+Route::middleware('role')->group(function () {
 
+    Route::get('admin', [DashboardController::class, 'index'])->name('admin.index');
+    // Route::resource('admin/dashboard', \App\Http\Controllers\AdminController::class);
+    Route::resource('admin/categories', CategoryController::class);
+    Route::resource('admin/users', UserController::class);
+    Route::resource('admin/news', PostController::class);
+
+});
 
 require __DIR__ . '/auth.php';
 
@@ -43,6 +46,11 @@ require __DIR__ . '/auth.php';
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/no-permission', function () {
+    return view('frontend.pages.no-permission');
+});
+
+Route::get('/home', [App\Http\Controllers\NewsController::class, 'index'])->name('home');
 
 
