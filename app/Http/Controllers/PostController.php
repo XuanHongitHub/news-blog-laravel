@@ -137,7 +137,7 @@ class PostController extends Controller
     {
         $news->delete();
 
-        return redirect()->route('news.index')->with('success', 'Bản tin đã được xóa thành công.');
+        return redirect()->route('news.index')->with('success', 'Bài viết đã được xóa thành công.');
     }
 
 }

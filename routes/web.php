@@ -11,6 +11,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
+use App\Mail\BlogMail;
 
 
 Route::get('/', [NewsController::class, 'index'])->name('home');
@@ -21,6 +22,9 @@ Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::get('/search-results', [NewsController::class, 'searchResults'])->name('search.results');
 
+// Route::get("/sendMail", function(){
+//     Mail::mailer('mailtrap'->send(new BlogMail));
+// });
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -44,7 +44,7 @@ class CategoryController extends Controller
             'status' => $request->input('status'),
         ]);
 
-        return redirect()->route('categories.index');
+        return redirect()->route('categories.index')->with('success', 'Thêm danh mục thành công.');
     }
 
     /**
