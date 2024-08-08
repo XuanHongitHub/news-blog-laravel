@@ -38,8 +38,6 @@
   <!-- Scripts -->
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-
-
 </head>
 
 <body style="background-color: #f9fbfe">
@@ -183,7 +181,7 @@
             <h3 class="footer-heading">Menu</h3>
             <ul class="footer-links list-unstyled">
               <li><a href="{{url('/')}}"><i class="bi bi-chevron-right"></i> Trang chủ</a></li>
-              <li><a href="{{url('category')}}"><i class="bi bi-chevron-right"></i> Danh Mục</a></li>
+              <li><a href="{{url('all-posts')}}"><i class="bi bi-chevron-right"></i> Tất cả bài viết</a></li>
               <li><a href="{{url('about')}}"><i class="bi bi-chevron-right"></i> Giới Thiệu</a></li>
               <li><a href="{{url('contact')}}"><i class="bi bi-chevron-right"></i> Liên Hệ</a></li>
             </ul>
@@ -191,15 +189,12 @@
           <div class="col-6 col-lg-2">
             <h3 class="footer-heading">Danh Mục</h3>
             <ul class="footer-links list-unstyled">
-              <li><a href="category.html"><i class="bi bi-chevron-right"></i> Business</a></li>
-              <li><a href="category.html"><i class="bi bi-chevron-right"></i> Culture</a></li>
-              <li><a href="category.html"><i class="bi bi-chevron-right"></i> Sport</a></li>
-              <li><a href="category.html"><i class="bi bi-chevron-right"></i> Food</a></li>
-              <li><a href="category.html"><i class="bi bi-chevron-right"></i> Politics</a></li>
-              <li><a href="category.html"><i class="bi bi-chevron-right"></i> Celebrity</a></li>
-              <li><a href="category.html"><i class="bi bi-chevron-right"></i> Startups</a></li>
-              <li><a href="category.html"><i class="bi bi-chevron-right"></i> Travel</a></li>
-
+              @foreach ($categories_nav as $category)
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url('/single-category', [$category->slug]) }}"><i
+                    class="bi bi-chevron-right"></i>{{$category->category_name}}</a>
+              </li>
+              @endforeach
             </ul>
           </div>
 
@@ -207,52 +202,21 @@
             <h3 class="footer-heading">Bài Viết Mới</h3>
 
             <ul class="footer-links footer-blog-entry list-unstyled">
+              @foreach ($latestPosts as $post)
               <li>
-                <a href="single-post.html" class="d-flex align-items-center">
-                  <img src="{{ asset('assets/img/post-sq-1.jpg') }}" alt="" class="img-fluid me-3">
+                <a href="{{ url('/single-post',[$post->slug]) }}" class="d-flex align-items-center">
+                  <img src="{{ asset($post->preview) }}" alt="" class="img-fluid me-3">
                   <div>
-                    <div class="post-meta d-block"><span class="date">Culture</span> <span class="mx-1">&bullet;</span>
-                      <span>Jul 5th '22</span></div>
-                    <span>5 Great Startup Tips for Female Founders</span>
+                    <div class="post-meta d-block"><span
+                        class="date">{{ \App\Models\Category::find($post->category_id)->category_name }}</span> <span
+                        class="mx-1">&bullet;</span>
+                      <span>{{ Carbon\Carbon::parse($post->created_at)->translatedFormat('jS F Y') }}</span></div>
+                    <span>{{ $post->title }}</span>
                   </div>
                 </a>
               </li>
-
-              <li>
-                <a href="single-post.html" class="d-flex align-items-center">
-                  <img src="{{ asset('assets/img/post-sq-2.jpg') }}" alt="" class="img-fluid me-3">
-                  <div>
-                    <div class="post-meta d-block"><span class="date">Culture</span> <span class="mx-1">&bullet;</span>
-                      <span>Jul 5th '22</span></div>
-                    <span>What is the son of Football Coach John Gruden, Deuce Gruden doing Now?</span>
-                  </div>
-                </a>
-              </li>
-
-              <li>
-                <a href="single-post.html" class="d-flex align-items-center">
-                  <img src="{{ asset('assets/img/post-sq-3.jpg') }}" alt="" class="img-fluid me-3">
-                  <div>
-                    <div class="post-meta d-block"><span class="date">Culture</span> <span class="mx-1">&bullet;</span>
-                      <span>Jul 5th '22</span></div>
-                    <span>Life Insurance And Pregnancy: A Working Mom’s Guide</span>
-                  </div>
-                </a>
-              </li>
-
-              <li>
-                <a href="single-post.html" class="d-flex align-items-center">
-                  <img src="{{ asset('assets/img/post-sq-4.jpg') }}" alt="" class="img-fluid me-3">
-                  <div>
-                    <div class="post-meta d-block"><span class="date">Culture</span> <span class="mx-1">&bullet;</span>
-                      <span>Jul 5th '22</span></div>
-                    <span>How to Avoid Distraction and Stay Focused During Video Calls?</span>
-                  </div>
-                </a>
-              </li>
-
+              @endforeach
             </ul>
-
           </div>
         </div>
       </div>
