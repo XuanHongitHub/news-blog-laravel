@@ -1379,6 +1379,6 @@ section {
 
 @media (max-width: 576px) {
   .subpost-img {
-    height: 3rem;
+    height: 100%;
   }
 }

@@ -21,7 +21,10 @@
         <div class="tab-pane fade show active" id="pills-popular" role="tabpanel" aria-labelledby="pills-popular-tab">
             @foreach ($popularPosts as $post)
             <div class="post-entry-1 border-bottom">
-                <div class="post-meta"><span class="date">{{ App\Models\Category::find($post->category_id)->category_name }}</span> <span class="mx-1">&bullet;</span> <span>{{Carbon\Carbon::parse($post->created_at)->translatedFormat('jS F Y')  }}</span></div>
+                <div class="post-meta"><span
+                        class="date">{{ App\Models\Category::find($post->category_id)->category_name }}</span> <span
+                        class="mx-1">&bullet;</span>
+                    <span>{{Carbon\Carbon::parse($post->created_at)->translatedFormat('jS F Y')  }}</span></div>
                 <h2 class="mb-2"><a href="{{ url('/single-post',[$post->slug]) }}">{{ $post->title }}</a></h2>
                 <span class="author mb-3 d-block">{{ $post->author }}</span>
             </div>
@@ -32,7 +35,10 @@
         <div class="tab-pane fade" id="pills-trending" role="tabpanel" aria-labelledby="pills-trending-tab">
             @foreach ($trendingPosts as $post)
             <div class="post-entry-1 border-bottom">
-                <div class="post-meta"><span class="date">{{ App\Models\Category::find($post->category_id)->category_name }}</span> <span class="mx-1">&bullet;</span> <span>{{Carbon\Carbon::parse($post->created_at)->translatedFormat('jS F Y')  }}</span></div>
+                <div class="post-meta"><span
+                        class="date">{{ App\Models\Category::find($post->category_id)->category_name }}</span> <span
+                        class="mx-1">&bullet;</span>
+                    <span>{{Carbon\Carbon::parse($post->created_at)->translatedFormat('jS F Y')  }}</span></div>
                 <h2 class="mb-2"><a href="{{ url('/single-post',[$post->slug]) }}">{{ $post->title }}</a></h2>
                 <span class="author mb-3 d-block">{{ $post->author }}</span>
             </div>
@@ -43,7 +49,10 @@
         <div class="tab-pane fade" id="pills-latest" role="tabpanel" aria-labelledby="pills-latest-tab">
             @foreach ($latestPosts as $post)
             <div class="post-entry-1 border-bottom">
-                <div class="post-meta"><span class="date">{{ App\Models\Category::find($post->category_id)->category_name }}</span> <span class="mx-1">&bullet;</span> <span>{{Carbon\Carbon::parse($post->created_at)->translatedFormat('jS F Y')  }}</span></div>
+                <div class="post-meta"><span
+                        class="date">{{ App\Models\Category::find($post->category_id)->category_name }}</span> <span
+                        class="mx-1">&bullet;</span>
+                    <span>{{Carbon\Carbon::parse($post->created_at)->translatedFormat('jS F Y')  }}</span></div>
                 <h2 class="mb-2"><a href="{{ url('/single-post',[$post->slug]) }}">{{ $post->title }}</a></h2>
                 <span class="author mb-3 d-block">{{ $post->author }}</span>
             </div>

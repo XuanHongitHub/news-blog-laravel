@@ -56,17 +56,20 @@ class PostController extends Controller
             $imagePath = 'images/' . $imageName;
         }
 
+        $content = $request->input('content');
+        $cleanedContent = str_replace('margin-left: calc(-128px) !important', '', $content);
         // Create the news entry
         News::insert([
             'category_id' => $request->input('category_id'),
             'title' => $request->input('title'),
             'summary' => $request->input('summary'),
             'preview' => $imagePath,
-            'content' => $request->input('content'),
+            'content' => $cleanedContent,
             'tags' => $request->input('tags'),
             'slug' => Str::slug($request->input('title')),
             'news_status' => $request->input('status'),
             'comment_status' => $request->input('comment_status'),
+            'user_id' => auth()->id()
         ]);
 
 
@@ -117,12 +120,14 @@ class PostController extends Controller
         $news->category_id = $request->input('category_id');
         $news->summary = $request->input('summary');
         $news->tags = $request->input('tags');
-        $news->content = $request->input('content');
+        $content = $request->input('content');
+        $cleanedContent = str_replace('margin-left: calc(-128px) !important', '', $content);
+        $news->content = $cleanedContent;
         $news->news_status = $request->input('status');
 
         // Không thay đổi trường preview nếu không có ảnh mới
         if (!$request->hasFile('file') && empty($news->preview)) {
-            $news->preview = 'default_preview_image.jpg'; // Đặt giá trị mặc định nếu cần
+            $news->preview = 'default_preview_image.png'; // Đặt giá trị mặc định nếu cần
         }
 
         $news->save();

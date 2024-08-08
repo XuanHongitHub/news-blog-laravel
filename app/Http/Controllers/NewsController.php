@@ -15,11 +15,17 @@ class NewsController extends Controller
         $mainPost = News::latest()->first();
         $subPostsFirstPart = News::latest()->skip(1)->take(3)->get();
         $subPostsSecondPart = News::latest()->skip(4)->take(3)->get();
+
+        $travelPosts = News::where('category_id', 12)
+            ->orderBy('created_at', 'desc')
+            ->take(10)
+            ->get();
         $data = [
             'mainPost' => $mainPost,
             'subPostsFirstPart' => $subPostsFirstPart,
             'subPostsSecondPart' => $subPostsSecondPart,
             // 'latestTechPost' => $latestTechPost,
+            'travelPosts' => $travelPosts,
             'body' => $body,
         ];
         return view('frontend.pages.home', $data);

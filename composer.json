@@ -9,6 +9,7 @@
         "aws/aws-sdk-php": "^3.316",
         "cviebrock/eloquent-sluggable": "^11.0",
         "laravel/framework": "^11.9",
+        "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "mailersend/laravel-driver": "^2.6",
         "nesbot/carbon": "^3.7",

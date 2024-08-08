@@ -19,6 +19,7 @@ class News extends Model
         'summary',
         'preview',
         'content',
+        'user_id',
         'views',
         'tags',
         'slug',
@@ -30,7 +31,10 @@ class News extends Model
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
-
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     /**
      * Return the sluggable configuration array for this model.
