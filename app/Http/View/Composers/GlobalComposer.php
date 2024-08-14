@@ -34,13 +34,6 @@ class GlobalComposer
             ->limit(5)
             ->get();
 
-        $techPosts = News::where('category_id', 1)
-            ->latest()
-            ->get();
-
-        $techPost = $techPosts->all();
-
-
-        $view->with(compact('popularPosts', 'trendingPosts', 'latestPosts', 'categories_sidebar', 'categories_nav', 'techPost', ));
+        $view->with(compact('popularPosts', 'trendingPosts', 'latestPosts', 'categories_sidebar', 'categories_nav', ));
     }
 }

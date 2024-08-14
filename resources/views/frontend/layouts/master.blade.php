@@ -67,13 +67,12 @@
                   href="{{ url('/single-category', [$category->slug]) }}">{{$category->category_name}}</a>
               </li>
               @endforeach
+              <li class="nav-item">
+                <a class="nav-link"
+                  href="{{ url('/all-posts') }}">Tất Cả Bài Viết</a>
+              </li>
             </ul>
           </li>
-          {{-- @foreach ($categories_nav as $category)
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url('/single-category', [$category->slug]) }}">{{$category->category_name}}</a>
-          </li>
-          @endforeach --}}
           <li><a href="{{url('about')}}">Giới Thiệu</a></li>
           <li><a href="{{url('contact')}}">Liên Hệ</a></li>
         </ul>
@@ -229,26 +228,22 @@
         <div class="row justify-content-between">
           <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
             <div class="copyright">
-              © Copyright <strong><span>XuanHong</span></strong>. All Rights Reserved
+              © Copyright <strong><span class="text-info">XuanHong</span></strong>. All Rights Reserved
             </div>
 
-            <div class="credits">
+            {{-- <div class="credits">
               <!-- All the links in the footer should remain intact. -->
               <!-- You can delete the links only if you purchased the pro version. -->
               <!-- Licensing information: https://bootstrapmade.com/license/ -->
               <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/herobiz-bootstrap-business-template/ -->
               Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-            </div>
+            </div> --}}
 
           </div>
 
           <div class="col-md-6">
             <div class="social-links mb-3 mb-lg-0 text-center text-md-end">
-              <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-              <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-              <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-              <a href="#" class="google-plus"><i class="bi bi-skype"></i></a>
-              <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+              <a href="https://www.facebook.com/ohoho.1509/" class="facebook"><i class="bi bi-facebook text-info"></i></a>
             </div>
 
           </div>
@@ -260,8 +255,8 @@
 
   </footer>
 
-  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i
-      class="bi bi-arrow-up-short"></i></a>
+  <a href="#" class="scroll-top d-flex align-items-center justify-content-center bg-info"><i
+      class="bi bi-arrow-up-short "></i></a>
 
   <!-- Vendor JS Files -->
   <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>

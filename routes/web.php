@@ -23,8 +23,6 @@ Route::post('/comments/replies', [CommentController::class, 'getReplies'])->name
 Route::post('/comments/store', [CommentController::class, 'store'])->name('comments.store');
 Route::post('/comments/reply', [CommentController::class, 'store'])->name('comments.reply');
 Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
-Route::delete('/replies/{id}', [CommentController::class, 'destroyReply'])->name('replies.destroy');
-
 Route::get('/comments/{comment}/replies', [CommentController::class, 'getReplies']);
 
 Route::get('/single-category/{slug}', [NewsController::class, 'single_category']);

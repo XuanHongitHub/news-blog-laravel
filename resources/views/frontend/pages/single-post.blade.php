@@ -77,7 +77,7 @@
                                             <h6 class="me-2">{{ $comment->user->name }}</h6>
                                             <span class="text-muted">{{ $comment->created_at->diffForHumans() }}</span>
                                             @auth
-                                            @if (auth()->id() === $comment->user_id || auth()->user()->is_admin)
+                                            @if (auth()->id() === $comment->user_id || auth()->user()->level === 1)
                                             <button class="btn delete-comment ms-1 btn-sm"
                                                 data-comment-id="{{ $comment->id }}">
                                                 <i class="bi bi-trash-fill"></i>
@@ -121,7 +121,7 @@
                                                                 class="text-muted">{{ $reply->created_at->diffForHumans() }}</span>
                                                             @auth
                                                             @if (auth()->id() === $reply->user_id ||
-                                                            auth()->user()->is_admin)
+                                                            auth()->user()->level === 1)
                                                             <button class="btn delete-reply ms-1 btn-sm"
                                                                 data-reply-id="{{ $reply->id }}">
                                                                 <i class="bi bi-trash-fill"></i>
@@ -255,7 +255,6 @@
                         if (data.success) {
                             if (data.replies.data.length) {
                                 data.replies.data.forEach(reply => {
-                                    // Kiểm tra xem reply.user và reply.user.avatar có tồn tại không
                                     const avatarUrl = reply.user && reply.user
                                         .avatar ?
                                         `{{ asset('storage/') }}/${reply.user.avatar}` :
@@ -272,13 +271,6 @@
                         <div class="reply-meta d-flex align-items-baseline">
                             <h6 class="mb-0 me-2">${reply.user ? reply.user.name : 'Tên người dùng'}</h6>
                             <span class="text-muted">${new Date(reply.created_at).toLocaleString()}</span>
-                            @auth
-                              @if (auth()->id() === $reply->user_id || auth()->user()->is_admin)
-                              <button class="btn delete-reply ms-1 btn-sm" data-reply-id="{{ $reply->id }}">
-                                  <i class="bi bi-trash-fill"></i>
-                              </button>
-                              @endif
-                              @endauth
                         </div>
                         <div class="reply-body">
                             ${reply.comment_content}
@@ -430,13 +422,6 @@
                                 <div class="reply-meta d-flex align-items-baseline">
                                     <h6 class="mb-0 me-2">${data.comment.user.name}</h6>
                                     <span class="text-muted">${new Date(data.comment.created_at).toLocaleString()}</span>
-                                    @auth
-                                    @if (auth()->id() === $reply->user_id || auth()->user()->is_admin)
-                                    <button class="btn delete-reply ms-1 btn-sm" data-reply-id="{{ $reply->id }}">
-                                        <i class="bi bi-trash-fill"></i>
-                                    </button>
-                                    @endif
-                                    @endauth
                                 </div>
                                 <div class="reply-body">
                                     ${data.comment.comment_content}

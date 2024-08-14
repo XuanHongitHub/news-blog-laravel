@@ -26,7 +26,7 @@
                         class="mx-1">&bullet;</span>
                     <span>{{Carbon\Carbon::parse($post->created_at)->translatedFormat('jS F Y')  }}</span></div>
                 <h2 class="mb-2"><a href="{{ url('/single-post',[$post->slug]) }}">{{ $post->title }}</a></h2>
-                <span class="author mb-3 d-block">{{ $post->author }}</span>
+                <span class="author mb-3 d-block">{{ $post->user->name }}</span>
             </div>
             @endforeach
         </div> <!-- End Popular -->
@@ -66,7 +66,7 @@
     <h3 class="aside-title">Danh Mục</h3>
     <ul class="aside-links list-unstyled">
         @foreach ($categories_sidebar as $category)
-        <li><a href="{{ $category->slug }}"><i class="bi bi-chevron-right"></i> {{ $category->category_name }}</a></li>
+        <li><a href="{{  url('/single-category',[$category->slug]) }}"><i class="bi bi-chevron-right"></i> {{ $category->category_name }}</a></li>
         @endforeach
     </ul>
 </div><!-- End Categories -->
@@ -79,7 +79,7 @@
         $tags = explode(',', $news->tags);
         @endphp
         @foreach ($tags as $tag)
-        <li><a href="{{ url('/single-post',[$post->slug]) }}">{{ trim($tag) }}</a></li>
+        <li><a href="{{ url('/search-results?query=' . urlencode(trim($tag))) }}">{{ trim($tag) }}</a></li>
         @endforeach
         @endif
     </ul>

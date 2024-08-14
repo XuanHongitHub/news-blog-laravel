@@ -17,16 +17,25 @@ class NewsController extends Controller
         $subPostsFirstPart = News::latest()->skip(1)->take(3)->get();
         $subPostsSecondPart = News::latest()->skip(4)->take(3)->get();
 
+        $techPosts = News::where('category_id', 1)
+            ->orderBy('created_at', 'desc')
+            ->take(15)
+            ->get();
         $travelPosts = News::where('category_id', 12)
             ->orderBy('created_at', 'desc')
             ->take(10)
+            ->get();
+        $lifePosts = News::where('category_id', 9)
+            ->orderBy('created_at', 'desc')
+            ->take(15)
             ->get();
         $data = [
             'mainPost' => $mainPost,
             'subPostsFirstPart' => $subPostsFirstPart,
             'subPostsSecondPart' => $subPostsSecondPart,
-            // 'latestTechPost' => $latestTechPost,
+            'techPosts' => $techPosts,
             'travelPosts' => $travelPosts,
+            'lifePosts' => $lifePosts,
             'body' => $body,
         ];
         return view('frontend.pages.home', $data);
@@ -39,7 +48,6 @@ class NewsController extends Controller
             ->firstOrFail(); // Nếu không tìm thấy sẽ ném lỗi 404
 
         // Lấy các bình luận liên quan đến bài viết và phân trang các bình luận chính
-        // Sắp xếp theo thời gian tạo mới nhất trước
         $comments = Comment::where('news_id', $news->id)
             ->whereNull('parent_id') // Chỉ lấy các bình luận chính
             ->with('user') // Tải thông tin người dùng
@@ -69,14 +77,16 @@ class NewsController extends Controller
 
     public function single_category($slug = '')
     {
-
         $category_arr = DB::table('categories')->where('slug', $slug)->first();
 
         if (!$category_arr) {
             abort(404, 'Category not found');
         }
 
-        $list_news = DB::table('news')->where('category_id', $category_arr->id)->paginate(5);
+        $list_news = DB::table('news')
+            ->where('category_id', $category_arr->id)
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
 
         $body['title'] = $category_arr->category_name;
         $data = [
@@ -89,13 +99,17 @@ class NewsController extends Controller
         return view('frontend.pages.single-category', $data);
     }
 
+
     public function allPosts()
     {
         $body['title'] = 'Tin Mới';
 
-        $list_news = News::paginate(10); // Lấy 10 bài viết mỗi trang
+        $list_news = News::orderBy('created_at', 'desc')
+            ->paginate(10);
+
         return view('frontend.pages.all-posts', compact('list_news', 'body'));
     }
+
 
     public function searchResults(Request $request)
     {
