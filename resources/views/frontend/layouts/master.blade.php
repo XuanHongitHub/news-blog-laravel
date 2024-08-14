@@ -8,6 +8,7 @@
   <title>{{ $body['title'] }}</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <!-- Favicons -->
   <link href="{{ asset('assets/img/favicon.png') }}" rel="icon">
@@ -50,7 +51,7 @@
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="" alt=""> -->
         <h1>Xuan</h1>
-        <h1 class="text-primary">Hong</h1>
+        <h1 class="text-info">Hong</h1>
       </a>
 
       <nav id="navbar" class="navbar">
@@ -271,6 +272,7 @@
 
   <!-- Template Main JS File -->
   <script src="{{ asset('assets/js/main.js') }}"></script>
+
 
 </body>
 

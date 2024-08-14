@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\News;
+use App\Models\Comment;
 
 class NewsController extends Controller
 {
@@ -30,19 +31,41 @@ class NewsController extends Controller
         ];
         return view('frontend.pages.home', $data);
     }
-    function single_post($slug = '')
+    public function show($slug)
     {
-        $category_arr = DB::table('news')
-            ->select('categories.category_name')
-            ->join('categories', 'news.category_id', '=', 'categories.id')
-            ->where('news.slug', $slug)
-            ->first();
-        $news = DB::table('news')->where('slug', $slug)->first();
-        $body['title'] = $news->title;
-        $data = ['slug' => $slug, 'news' => $news, 'category_arr' => $category_arr, 'body' => $body];
+        // Lấy bài viết và danh mục liên quan
+        $news = News::where('slug', $slug)
+            ->with('category') // Tải thông tin danh mục
+            ->firstOrFail(); // Nếu không tìm thấy sẽ ném lỗi 404
+
+        // Lấy các bình luận liên quan đến bài viết và phân trang các bình luận chính
+        // Sắp xếp theo thời gian tạo mới nhất trước
+        $comments = Comment::where('news_id', $news->id)
+            ->whereNull('parent_id') // Chỉ lấy các bình luận chính
+            ->with('user') // Tải thông tin người dùng
+            ->orderBy('created_at', 'desc') // Sắp xếp bình luận mới nhất trước
+            ->paginate(6); // Phân trang với 6 bình luận mỗi trang
+
+        // Lấy tất cả các phản hồi cho các bình luận chính trên trang hiện tại
+        $commentIds = $comments->pluck('id');
+        $replies = Comment::whereIn('parent_id', $commentIds)
+            ->with('user') // Tải thông tin người dùng
+            ->get()
+            ->groupBy('parent_id'); // Nhóm các phản hồi theo parent_id
+
+        // Chuẩn bị dữ liệu cho view
+        $news->increment('views');
+        $data = [
+            'body' => ['title' => $news->title],
+            'news' => $news,
+            'comments' => $comments,
+            'replies' => $replies,
+            'category_arr' => $news->category // Lấy thông tin danh mục từ bài viết
+        ];
+
+        // Trả về view với dữ liệu đã chuẩn bị
         return view('frontend.pages.single-post', $data);
     }
-
 
     public function single_category($slug = '')
     {
