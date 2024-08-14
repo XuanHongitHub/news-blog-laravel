@@ -77,7 +77,8 @@
                                             <h6 class="me-2">{{ $comment->user->name }}</h6>
                                             <span class="text-muted">{{ $comment->created_at->diffForHumans() }}</span>
                                             @auth
-                                            @if (auth()->id() === $comment->user_id || auth()->user()->level === 1)
+                                            @if (auth()->id() === $comment->user_id || auth()->user()->roles ===
+                                            'admin')
                                             <button class="btn delete-comment ms-1 btn-sm"
                                                 data-comment-id="{{ $comment->id }}">
                                                 <i class="bi bi-trash-fill"></i>
@@ -121,7 +122,7 @@
                                                                 class="text-muted">{{ $reply->created_at->diffForHumans() }}</span>
                                                             @auth
                                                             @if (auth()->id() === $reply->user_id ||
-                                                            auth()->user()->level === 1)
+                                                            auth()->user()->roles === 'admin')
                                                             <button class="btn delete-reply ms-1 btn-sm"
                                                                 data-reply-id="{{ $reply->id }}">
                                                                 <i class="bi bi-trash-fill"></i>
@@ -203,23 +204,16 @@
 
     .reply-button i {
         font-size: 1rem;
-        /* Điều chỉnh kích thước icon nếu cần */
     }
 
-    /* CSS cho nút xóa */
     .delete-comment {
         font-size: 0.8rem;
         padding: 0.2rem 0.4rem;
         border: none;
-        /* Không có khung viền */
         background-color: transparent;
-        /* Nền trong suốt */
         color: #000;
-        /* Màu chữ và biểu tượng */
         transition: color 0.3s ease, background-color 0.3s ease;
-        /* Hiệu ứng chuyển động */
         cursor: pointer;
-        /* Con trỏ chuột khi hover */
     }
 
     .delete-comment:hover {
@@ -231,8 +225,60 @@
         font-size: 1rem;
     }
 </style>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+    $(document).ready(function() {
+        $('.delete-comment').on('click', function() {
+            var commentId = $(this).data('comment-id');
+            var $commentElement = $('#comment-' + commentId); // Lấy phần tử bình luận cần xóa
+            if (confirm('Bạn có chắc chắn muốn xóa bình luận này?')) {
+                $.ajax({
+                    url: '/comment/' + commentId,
+                    type: 'DELETE',
+                    data: {
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            // Xóa bình luận khỏi DOM
+                            $commentElement.remove();
+                            alert(response.message);
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function(xhr) {
+                        alert('Có lỗi xảy ra. Vui lòng thử lại.');
+                    }
+                });
+            }
+        });
+    });
+    $('.delete-reply').on('click', function() {
+        var replyId = $(this).data('reply-id');
+        var $button = $(this);
+        console.log('Reply ID:', replyId); // Kiểm tra giá trị replyId
+        if (confirm('Bạn có chắc chắn muốn xóa phản hồi này?')) {
+            $.ajax({
+                url: '/comment/reply/' + replyId,
+                type: 'DELETE',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    if (response.success) {
+                        $button.closest('.reply').remove();
+                        alert(response.message);
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function(xhr) {
+                    alert('Có lỗi xảy ra. Vui lòng thử lại.');
+                }
+            });
+        }
+    });
     document.addEventListener('DOMContentLoaded', function() {
         const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         document.querySelectorAll('.load-more-replies').forEach(function(button) {
@@ -243,7 +289,7 @@
                 const nextPage = parseInt(currentPage) + 1;
                 button.disabled = true;
                 button.textContent = 'Đang tải...';
-                fetch(`/comments/${commentId}/replies?page=${nextPage}`, {
+                fetch(`/comment/${commentId}/replies?page=${nextPage}`, {
                         method: 'GET',
                         headers: {
                             'X-Requested-With': 'XMLHttpRequest',
@@ -262,21 +308,21 @@
                                     const newReply = document.createElement('div');
                                     newReply.className = 'reply d-flex mb-4';
                                     newReply.innerHTML = `
-                    <div class="flex-shrink-0">
-                        <div class="avatar avatar-sm rounded-circle">
-                            <img class="avatar-img" src="${avatarUrl}" alt="Avatar của ${reply.user ? reply.user.name : 'Người dùng'}" class="img-fluid">
-                        </div>
-                    </div>
-                    <div class="flex-grow-1 ms-2 ms-sm-3">
-                        <div class="reply-meta d-flex align-items-baseline">
-                            <h6 class="mb-0 me-2">${reply.user ? reply.user.name : 'Tên người dùng'}</h6>
-                            <span class="text-muted">${new Date(reply.created_at).toLocaleString()}</span>
-                        </div>
-                        <div class="reply-body">
-                            ${reply.comment_content}
-                        </div>
-                    </div>
-                `;
+                                    <div class="flex-shrink-0">
+                                        <div class="avatar avatar-sm rounded-circle">
+                                            <img class="avatar-img" src="${avatarUrl}" alt="Avatar của ${reply.user ? reply.user.name : 'Người dùng'}" class="img-fluid">
+                                        </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-2 ms-sm-3">
+                                        <div class="reply-meta d-flex align-items-baseline">
+                                            <h6 class="mb-0 me-2">${reply.user ? reply.user.name : 'Tên người dùng'}</h6>
+                                            <span class="text-muted">${new Date(reply.created_at).toLocaleString()}</span>
+                                        </div>
+                                        <div class="reply-body">
+                                            ${reply.comment_content}
+                                        </div>
+                                    </div>
+                                `;
                                     replyContainer.appendChild(newReply);
                                 });
                                 button.setAttribute('data-current-page', nextPage);
@@ -311,7 +357,8 @@
             e.preventDefault();
             const form = e.target;
             const formData = new FormData(form);
-            fetch('{{ route('comments.store') }}', {
+            const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            fetch('{{ route('comment.store') }}', {
                         method: 'POST',
                         body: formData,
                         headers: {
@@ -322,57 +369,57 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        if (data.comment && data.comment.user && data.comment.user.avatar) {
-                            const commentsList = document.getElementById('comments-list');
-                            const newComment = document.createElement('div');
-                            newComment.className = 'comment d-flex mb-4';
-                            newComment.id = `comment-${data.comment.id}`;
-                            newComment.innerHTML = `
-                        <div class="flex-shrink-0">
-                            <div class="avatar avatar-sm rounded-circle">
-                                <img class="avatar-img" src="{{ asset('storage/') }}/${data.comment.user.avatar || 'default-avatar.png'}" alt="Avatar của ${data.comment.user.name}" class="img-fluid">
+                        const commentsList = document.getElementById('comments-list');
+                        const newComment = document.createElement('div');
+                        newComment.className = 'comment d-flex mb-4';
+                        newComment.id = `comment-${data.comment.id}`;
+                        newComment.innerHTML = `
+                <div class="flex-shrink-0">
+                    <div class="avatar avatar-sm rounded-circle">
+                        <img class="avatar-img" src="{{ asset('storage/') }}/${data.comment.user.avatar || 'default-avatar.png'}" alt="Avatar của ${data.comment.user.name}" class="img-fluid">
+                    </div>
+                </div>
+                <div class="flex-grow-1 ms-2 ms-sm-3">
+                    <div class="comment-meta d-flex align-items-baseline">
+                        <h6 class="me-2">${data.comment.user.name}</h6>
+                        <span class="text-muted">${new Date(data.comment.created_at).toLocaleString()}</span>
+                        @auth
+                        <button class="reply-button m-1 btn-sm" data-parent-id="${data.comment.id}">
+                            <i class="bi bi-reply-fill"></i> Phản hồi
+                        </button>
+                        @else
+                        <button class="reply-button mx-1 btn-sm" data-bs-toggle="modal" data-bs-target="#loginModal">
+                            <i class="bi bi-reply-fill"></i> Phản hồi
+                        </button>
+                        @endauth
+                    </div>
+                    <div class="comment-body">
+                        ${data.comment.comment_content}
+                    </div>
+                    @auth
+                    <div class="reply-form-container mt-3 d-none" id="reply-form-${data.comment.id}">
+                        <form class="reply-ajax-form" method="POST">
+                            @csrf
+                            <input type="hidden" name="news_id" value="{{ $news->id }}">
+                            <input type="hidden" name="parent_id" value="${data.comment.id}">
+
+                            <div class="col-12 mb-3">
+                                <label for="reply-message-${data.comment.id}">Nội dung</label>
+                                <textarea class="form-control" id="reply-message-${data.comment.id}"
+                                    name="comment_content" placeholder="Nhập nội dung trả lời"
+                                    cols="30" rows="3" required></textarea>
                             </div>
-                        </div>
-                        <div class="flex-grow-1 ms-2 ms-sm-3">
-                            <div class="comment-meta d-flex align-items-baseline">
-                                <h6 class="me-2">${data.comment.user.name}</h6>
-                                <span class="text-muted">${new Date(data.comment.created_at).toLocaleString()}</span>
-                                @auth
-                                <button class="reply-button mx-1 btn-sm" data-parent-id="${data.comment.id}">
-                                    <i class="bi bi-reply-fill"></i> Phản hồi
-                                </button>
-                                @else
-                                <button class="reply-button mx-1 btn-sm" data-bs-toggle="modal" data-bs-target="#loginModal">
-                                    <i class="bi bi-reply-fill"></i> Phản hồi
-                                </button>
-                                @endauth
+
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">Đăng trả lời</button>
                             </div>
-                            <div class="comment-body">
-                                ${data.comment.comment_content}
-                            </div>
-                            @auth
-                            <div class="reply-form-container mt-3 d-none" id="reply-form-${data.comment.id}">
-                                <form class="reply-form" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="news_id" value="{{ $news->id }}">
-                                    <input type="hidden" name="parent_id" value="${data.comment.id}">
-                                    <div class="col-12 mb-3">
-                                        <label for="reply-message-${data.comment.id}">Nội dung</label>
-                                        <textarea class="form-control" id="reply-message-${data.comment.id}" name="comment_content" placeholder="Nhập nội dung trả lời" cols="30" rows="3" required></textarea>
-                                    </div>
-                                    <div class="col-12">
-                                        <button type="submit" class="btn btn-primary">Đăng trả lời</button>
-                                    </div>
-                                </form>
-                            </div>
-                            @endauth
-                        </div>
-                    `;
-                            commentsList.insertAdjacentElement('afterbegin', newComment);
-                            form.reset();
-                        } else {
-                            console.error('Dữ liệu bình luận không hợp lệ:', data.comment);
-                        }
+                        </form>
+                    </div>
+                    @endauth
+                </div>
+            `;
+                        commentsList.insertAdjacentElement('afterbegin', newComment);
+                        form.reset();
                     } else {
                         console.error(data.error);
                     }
@@ -385,7 +432,7 @@
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
                 const formData = new FormData(form);
-                fetch('{{ route('comments.reply') }}', {
+                fetch('{{ route('comment.reply.store') }}', {
                             method: 'POST',
                             body: formData,
                             headers: {
@@ -442,6 +489,92 @@
                         console.error('Error:', error);
                     });
             });
+        });
+        document.addEventListener('submit', function(event) {
+            if (event.target.classList.contains('reply-ajax-form')) {
+                event.preventDefault();
+                const form = event.target;
+                const formData = new FormData(form);
+                const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                fetch('/comment/reply-ajax', {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'X-CSRF-TOKEN': token
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Tạo phần tử phản hồi mới ngay lập tức
+                            const newReply = document.createElement('div');
+                            newReply.className = 'comment d-flex mb-4';
+                            newReply.innerHTML = `
+                    <div class="flex-shrink-0">
+                        <div class="avatar avatar-sm rounded-circle">
+                            <img class="avatar-img" src="{{ asset('storage/') }}/${data.comment.user.avatar || 'default-avatar.png'}" alt="Avatar của ${data.comment.user.name}" class="img-fluid">
+                        </div>
+                    </div>
+                    <div class="flex-grow-1 ms-2 ms-sm-3">
+                        <div class="comment-meta d-flex align-items-baseline">
+                            <h6 class="me-2">${data.comment.user.name}</h6>
+                            <span class="text-muted">${new Date(data.comment.created_at).toLocaleString()}</span>
+                            @auth
+                            <button class="reply-button m-1 btn-sm" data-parent-id="${data.comment.id}">
+                                <i class="bi bi-reply-fill"></i> Phản hồi
+                            </button>
+                            @else
+                            <button class="reply-button mx-1 btn-sm" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                <i class="bi bi-reply-fill"></i> Phản hồi
+                            </button>
+                            @endauth
+                        </div>
+                        <div class="comment-body">
+                            ${data.comment.comment_content}
+                        </div>
+                        @auth
+                        <div class="reply-form-container mt-3 d-none" id="reply-form-${data.comment.id}">
+                            <form class="reply-ajax-form" method="POST">
+                                @csrf
+                                <input type="hidden" name="news_id" value="{{ $news->id }}">
+                                <input type="hidden" name="parent_id" value="${data.comment.id}">
+
+                                <div class="col-12 mb-3">
+                                    <label for="reply-message-${data.comment.id}">Nội dung</label>
+                                    <textarea class="form-control" id="reply-message-${data.comment.id}"
+                                        name="comment_content" placeholder="Nhập nội dung trả lời"
+                                        cols="30" rows="3" required></textarea>
+                                </div>
+
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary">Đăng trả lời</button>
+                                </div>
+                            </form>
+                        </div>
+                        @endauth
+                    </div>
+                `;
+                            // Xác định vị trí chèn phản hồi mới
+                            const parentId = formData.get('parent_id');
+                            const parentComment = document.querySelector(`#comment-${parentId}`);
+                            if (parentComment) {
+                                const replyContainer = parentComment.querySelector(
+                                    '.reply-form-container');
+                                replyContainer.classList.remove('d-none');
+                                replyContainer.insertAdjacentElement('beforebegin', newReply);
+                            }
+                            // Ẩn form phản hồi sau khi gửi
+                            form.reset();
+                            form.parentElement.classList.add('d-none');
+                        } else {
+                            console.error('Có lỗi xảy ra:', data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Lỗi:', error);
+                    });
+            }
         });
     });
 </script>

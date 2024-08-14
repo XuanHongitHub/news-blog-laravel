@@ -73,9 +73,9 @@
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
                         @if (Auth::user()->avatar != null)
-                        <img src="{{ Auth::user()->avatar }}" class="img-circle elevation-2" alt="User Image">
+                        <img src="{{ asset('storage/' . Auth::user()->avatar) }}" class="img-circle elevation-2" alt="User Image">
                         @else
-                        <img src="{{ asset('assets/admin/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2"
+                        <img src="{{ asset('storage/' . Auth::user()->avatar ) }}" class="img-circle elevation-2"
                             alt="User Image">
                         @endif
                     </div>
@@ -112,15 +112,6 @@
                                 </p>
                             </a>
                         </li>
-                        {{-- <li class="nav-item">
-                            <a href=""
-                                class="nav-link {{ Route::is('admin.subcategory.index') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-list"></i>
-                        <p>Sub Category
-                            <span class="badge badge-secondary right"></span>
-                        </p>
-                        </a>
-                        </li> --}}
                         <li class="nav-item">
                             <a href="{{ route('news.index') }}"
                                 class="nav-link {{ Request::is('admin/news*') ? 'active' : '' }}">
@@ -131,20 +122,20 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link {{ Route::is('admin.product.index') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>Products
-                                    <span class="badge badge-warning right"></span>
+                            <a href="{{ route('comments.index') }}"
+                                class="nav-link {{ Request::is('admin/comments*') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-comments"></i>
+                                <p>Bình luận
+                                    <span class="badge badge-primary right"></span>
                                 </p>
                             </a>
                         </li>
-                        {{-- @endrole --}}
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="" class="nav-link {{ Route::is('admin.profile.edit') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-id-card"></i>
                                 <p>Profile</p>
                             </a>
-                        </li>
+                        </li> --}}
 
                     </ul>
                 </nav>

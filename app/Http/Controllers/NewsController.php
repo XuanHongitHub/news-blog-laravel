@@ -42,36 +42,31 @@ class NewsController extends Controller
     }
     public function show($slug)
     {
-        // Lấy bài viết và danh mục liên quan
         $news = News::where('slug', $slug)
-            ->with('category') // Tải thông tin danh mục
-            ->firstOrFail(); // Nếu không tìm thấy sẽ ném lỗi 404
+            ->with('category')
+            ->firstOrFail();
 
-        // Lấy các bình luận liên quan đến bài viết và phân trang các bình luận chính
         $comments = Comment::where('news_id', $news->id)
-            ->whereNull('parent_id') // Chỉ lấy các bình luận chính
-            ->with('user') // Tải thông tin người dùng
-            ->orderBy('created_at', 'desc') // Sắp xếp bình luận mới nhất trước
-            ->paginate(6); // Phân trang với 6 bình luận mỗi trang
+            ->whereNull('parent_id')
+            ->with('user')
+            ->orderBy('created_at', 'desc')
+            ->paginate(6);
 
-        // Lấy tất cả các phản hồi cho các bình luận chính trên trang hiện tại
         $commentIds = $comments->pluck('id');
         $replies = Comment::whereIn('parent_id', $commentIds)
-            ->with('user') // Tải thông tin người dùng
+            ->with('user')
             ->get()
-            ->groupBy('parent_id'); // Nhóm các phản hồi theo parent_id
+            ->groupBy('parent_id');
 
-        // Chuẩn bị dữ liệu cho view
         $news->increment('views');
         $data = [
             'body' => ['title' => $news->title],
             'news' => $news,
             'comments' => $comments,
             'replies' => $replies,
-            'category_arr' => $news->category // Lấy thông tin danh mục từ bài viết
+            'category_arr' => $news->category
         ];
 
-        // Trả về view với dữ liệu đã chuẩn bị
         return view('frontend.pages.single-post', $data);
     }
 

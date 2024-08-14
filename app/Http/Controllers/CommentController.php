@@ -66,9 +66,36 @@ class CommentController extends Controller
             'parent_id' => $validated['parent_id'],
         ]);
 
+        $reply = $reply->load('user');
+
         return response()->json([
             'success' => true,
             'comment' => $reply
+        ]);
+    }
+
+    public function storeReply(Request $request)
+    {
+        $validatedData = $request->validate([
+            'news_id' => 'required|integer',
+            'parent_id' => 'required|integer',
+            'comment_content' => 'required|string',
+        ]);
+
+        $comment = new Comment();
+        $comment->news_id = $validatedData['news_id'];
+        $comment->parent_id = $validatedData['parent_id'];
+        $comment->comment_content = $validatedData['comment_content'];
+        $comment->user_id = auth()->id();
+        $comment->comment_status = 1; // Hoặc giá trị mặc định khác nếu cần
+        $comment->save();
+
+        $comment = $comment->load('user');
+
+
+        return response()->json([
+            'success' => true,
+            'comment' => $comment
         ]);
     }
 
@@ -76,7 +103,7 @@ class CommentController extends Controller
     {
         $comment = Comment::findOrFail($id);
 
-        if (auth()->id() === $comment->user_id || auth()->user()->is_admin) {
+        if (auth()->id() === $comment->user_id || auth()->user()->roles === 'admin') {
             $comment->replies()->delete();
             $comment->delete();
 

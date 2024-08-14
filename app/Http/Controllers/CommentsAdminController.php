@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class CommentsAdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,9 @@ class UserController extends Controller
             'title' => 'Trang chủ',
         ];
 
-        $users = User::all();
+        $comments = Comment::all();
 
-        return view('backend.users.index', compact('users', 'body'));
+        return view('backend.comments.index')->with(compact('body', 'comments'));
     }
 
     /**
@@ -40,7 +40,7 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show(Comment $comment)
     {
         //
     }
@@ -48,32 +48,32 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user)
+    public function edit(Comment $comment)
     {
-        return view('backend.users.edit', compact('user'));
+        return view('backend.comments.edit', compact('comment'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, Comment $comment)
     {
         $request->validate([
-            'roles' => 'required|string|max:255',
+            'comment_status' => 'required|boolean',
         ]);
 
-        $user->roles = $request->input('roles');
-        $user->save();
+        $comment->update($request->only('comment_content', 'comment_status'));
 
-        return redirect()->route('users.index')->with('success', 'Vai trò đã được cập nhật thành công.');
+        return redirect()->route('comments.index')->with('success', 'Cập nhật bình luận thành công.');
     }
-
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy(Comment $comment)
     {
-        //
+        $comment->delete();
+
+        return redirect()->route('comments.index')->with('success', 'Xóa bình luận thành công.');
     }
 }
