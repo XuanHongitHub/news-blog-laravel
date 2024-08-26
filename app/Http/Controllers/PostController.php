@@ -125,9 +125,8 @@ class PostController extends Controller
         $news->content = $cleanedContent;
         $news->news_status = $request->input('status');
 
-        // Không thay đổi trường preview nếu không có ảnh mới
         if (!$request->hasFile('file') && empty($news->preview)) {
-            $news->preview = 'default_preview_image.png'; // Đặt giá trị mặc định nếu cần
+            $news->preview = 'default_preview_image.png';
         }
 
         $news->save();

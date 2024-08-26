@@ -46,7 +46,6 @@ Route::middleware('auth')->group(function () {
 Route::middleware('role')->group(function () {
 
     Route::get('admin', [DashboardController::class, 'index'])->name('admin.index');
-    // Route::resource('admin/dashboard', \App\Http\Controllers\AdminController::class);
     Route::resource('admin/categories', CategoryController::class);
     Route::resource('admin/users', UserController::class);
     Route::resource('admin/news', PostController::class);
